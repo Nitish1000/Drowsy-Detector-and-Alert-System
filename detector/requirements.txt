@@ -1,0 +1,6 @@
+# Pinned on purpose: newer MediaPipe releases removed the "solutions" API used here.
+# Works with Python 3.9 - 3.12.
+numpy==1.26.4
+opencv-python==4.10.0.84
+mediapipe==0.10.14
+requests==2.32.3

@@ -1,0 +1,137 @@
+:root {
+  --paper: #eef2f4;
+  --ink: #14232f;
+  --muted: #55656f;
+  --line: #c9d4da;
+
+  --tone-idle: #24394a;
+  --tone-neutral: #35505f;
+  --tone-ok: #0b6b5a;
+  --tone-warn: #8a5a00;
+  --tone-danger: #b3261e;
+
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.page { max-width: 62rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+
+h1, h2 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
+h1 { font-size: 1.75rem; font-weight: 700; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+
+.top { margin-bottom: 1.75rem; }
+.muted { color: var(--muted); margin: 0.35rem 0 0; }
+
+code { background: rgba(20, 35, 47, 0.08); padding: 0.1em 0.35em; border-radius: 3px; }
+
+.notice { padding: 0.75rem 1rem; margin: 0 0 1rem; border-left: 4px solid; background: #fff; }
+.notice--error { border-color: var(--tone-danger); }
+
+/* ---- status panel: the colour of the whole panel is the alert ---- */
+.status {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem 2rem;
+  align-items: end;
+  padding: 2rem 2rem 1.75rem;
+  color: #fff;
+  background: var(--tone-idle);
+  transition: background-color 0.25s ease;
+}
+.status--neutral { background: var(--tone-neutral); }
+.status--ok { background: var(--tone-ok); }
+.status--warn { background: var(--tone-warn); }
+.status--danger { background: var(--tone-danger); }
+
+.status__title { font-size: clamp(2.75rem, 9vw, 5rem); font-weight: 700; letter-spacing: -0.02em; }
+.status__hint { margin: 0.6rem 0 0; font-size: 1.1rem; max-width: 34rem; }
+
+.status__stats {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+.status__stats dt { font-size: 0.9rem; opacity: 0.9; }
+.status__stats dd { margin: 0; font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; }
+
+.status > .btn { grid-row: 1; grid-column: 2; }
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  border: 2px solid #fff;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn--stop { background: transparent; color: #fff; }
+.btn:hover:not(:disabled) { filter: brightness(0.94); }
+.btn--stop:hover:not(:disabled) { background: rgba(255, 255, 255, 0.15); filter: none; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn:focus-visible, .link-btn:focus-visible { outline: 3px solid #ffd54a; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .status--danger { animation: warn-pulse 1s ease-in-out infinite; }
+  @keyframes warn-pulse {
+    0%, 100% { background-color: var(--tone-danger); }
+    50% { background-color: #d8453b; }
+  }
+}
+
+/* ---- history ---- */
+.history { margin-top: 3rem; }
+.table-wrap { position: relative; overflow-x: auto; margin-top: 1rem; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.7rem 1rem 0.7rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.95rem; white-space: nowrap; }
+td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.actions { text-align: right; padding-right: 0; }
+
+.row-error {
+  display: block;
+  max-width: 22rem;
+  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: var(--tone-danger);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-btn {
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--tone-danger);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 40rem) {
+  .status { grid-template-columns: 1fr; padding: 1.5rem 1.25rem; }
+  .status > .btn { grid-row: auto; grid-column: 1; justify-self: start; }
+}
